@@ -1,7 +1,6 @@
-const { test, expect } = require("@jest/globals");
 const Employee = require("../lib/Employee");
 
-const testEmployee = new Employee("Bob", "fake id", "bob@bob.com");
+const testEmployee = new Employee("Bob", "fake id 1", "bob@bob.com");
 
 test("created an employee object", () => {
   expect(typeof testEmployee).toBe("object");
@@ -13,8 +12,8 @@ test("can get and set employees name", () => {
 });
 
 test("can get and set employees id", () => {
-  expect(testEmployee.id).toBe("fake id");
-  expect(testEmployee.getId()).toBe("fake id");
+  expect(testEmployee.id).toBe("fake id 1");
+  expect(testEmployee.getId()).toBe("fake id 1");
 });
 
 test("can get and set employees email", () => {
