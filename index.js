@@ -1,5 +1,7 @@
 const Manager = require("./lib/Manager");
 const inquirer = require("inquirer");
+const Intern = require("./lib/Intern");
+const Engineer = require("./lib/Engineer");
 
 const teamArray = [];
 
@@ -33,7 +35,6 @@ function question1() {
 }
 
 function managerQuestions() {
-  console.log("ask manager questions");
   inquirer
     .prompt([
       {
@@ -66,10 +67,73 @@ function managerQuestions() {
     });
 }
 function internQuestions() {
-  console.log("ask intern questions");
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is your interns name?",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is your intern id?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is your intern email?",
+      },
+      {
+        type: "input",
+        name: "school",
+        message: "What is your intern school?",
+      },
+    ])
+    .then((intern) => {
+      teamArray.push(
+        new Intern(intern.name, intern.id, intern.email, intern.school)
+      );
+
+      finalQuestion();
+    });
 }
 function engineerQuestions() {
-  console.log("ask engineer questions");
+  inquirer
+    .prompt([
+      {
+        type: "input",
+        name: "name",
+        message: "What is your engineer name?",
+      },
+      {
+        type: "input",
+        name: "id",
+        message: "What is your engineer id?",
+      },
+      {
+        type: "input",
+        name: "email",
+        message: "What is your engineer email?",
+      },
+      {
+        type: "input",
+        name: "github",
+        message: "What is your engineer github username?",
+      },
+    ])
+    .then((engineer) => {
+      teamArray.push(
+        new Engineer(
+          engineer.name,
+          engineer.id,
+          engineer.email,
+          engineer.github
+        )
+      );
+
+      finalQuestion();
+    });
 }
 
 function finalQuestion() {
