@@ -1,7 +1,10 @@
-const Manager = require("./lib/Manager");
 const inquirer = require("inquirer");
+const fs = require("fs");
+const path = require("path");
+const Manager = require("./lib/Manager");
 const Intern = require("./lib/Intern");
 const Engineer = require("./lib/Engineer");
+const htmlGenerator = require("./src/htmlGenerator");
 
 const teamArray = [];
 
@@ -62,7 +65,6 @@ function managerQuestions() {
       teamArray.push(
         new Manager(manager.name, manager.id, manager.email, manager.office)
       );
-      //   console.log(teamArray);
       finalQuestion();
     });
 }
@@ -146,7 +148,19 @@ function finalQuestion() {
       },
     ])
     .then(({ userConfirm }) => {
+      var outputPath = path.resolve(__dirname, "dist");
+
       if (userConfirm) question1();
-      else console.log("the end", teamArray);
+      else {
+        if (!fs.existsSync(outputPath)) {
+          fs.mkdir(outputPath);
+        }
+
+        fs.writeFileSync(
+          path.join(outputPath, "myTeam.html"),
+          htmlGenerator(teamArray),
+          "utf-8"
+        );
+      }
     });
 }
